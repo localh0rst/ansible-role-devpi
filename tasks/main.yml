@@ -14,9 +14,9 @@
     owner: devpi
     group: devpi
     mode: 0755
-    with_items:
-      - "{{ devpi_data_dir }}"
-      - "{{ devpi_config_dir }}"
+  with_items:
+    - "{{ devpi_data_dir }}"
+    - "{{ devpi_config_dir }}"
 
 - name: Create VirtualEnv for Devpi
   command: virtualenv "{{ devpi_venv_dir }}"
