@@ -49,6 +49,11 @@
     group: root
     mode: 0644
   notify: 
-    - Reload Systemd
-    - Restart Devpi Server
+    - Reload systemd
+
+- name: Start Devpi Server
+  systemd:
+    name: devpi-server
+    state: started
+    enabled: yes
 
