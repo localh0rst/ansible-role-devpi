@@ -1,0 +1,33 @@
+---
+- name: Create Devpi User
+  user:
+    name: devpi
+    state: present
+    system: yes
+    home: "{{ devpi_home }}"
+    createhome: yes
+
+- name: Create Devpi Data and Config Directory
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: devpi
+    group: devpi
+    mode: 0755
+    with_items:
+      - "{{ devpi_data_dir }}"
+      - "{{ devpi_config_dir }}"
+
+- name: Create VirtualEnv for Devpi
+  command: virtualenv "{{ devpi_venv_dir }}"
+  creates: "{{ devpi_venv_dir }}"
+
+- name: Install Devpi Server
+  pip:
+    name: "{{ item }}"
+    virtualenv: "{{ devpi_venv_dir }}"
+    state: present
+  with_items:
+    - "{{ devpi_server_package }}"
+    - "{{ devpi_client_package }}"
+    - "{{ devpi_web_package }}"
