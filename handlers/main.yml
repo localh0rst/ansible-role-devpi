@@ -1,2 +1,12 @@
 ---
-# handlers file for devpi
+- name: Reload systemd
+  systemd:
+    daemon_reload: yes
+    state: reloaded
+  become: yes
+
+- name: Restart Devpi Server
+  systemd:
+    name: devpi-server
+    state: started
+    enabled: yes

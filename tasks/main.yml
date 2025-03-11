@@ -40,3 +40,15 @@
   command:
     cmd: "{{ devpi_venv_dir }}/bin/devpi-init {{ devpi_init_params | join(' ') }}"
     creates: "{{ devpi_data_dir }}/.nodeinfo"
+
+- name: Add Devpi Service
+  template:
+    src: devpi-server.service.j2
+    dest: /etc/systemd/system/devpi-server.service
+    owner: root
+    group: root
+    mode: 0644
+  notify: 
+    - Reload Systemd
+    - Restart Devpi Server
+

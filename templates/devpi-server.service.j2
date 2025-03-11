@@ -1,0 +1,17 @@
+[Unit]
+Requires=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+PIDFile={{ devpi_home }}/devpi-server.PID
+Restart=always
+WorkingDirectory={{ devpi_venv_dir }}
+ExecStartPre=/bin/sleep 2
+ExecStart={{ devpi_venv_dir }}/bin/devpi-server --start --serverdir={{ devpi_data_dir }} --host={{ devpi_host }} --port={{ devpi_port }}
+ExecStop={{ devpi_venv_dir }}/bin/devpi-server --stop --serverdir={{ devpi_data_dir }}
+User={{ devpi_user }}
+SuccessExitStatus=SIGKILL
+
+[Install]
+WantedBy=multi-user.target
