@@ -2,6 +2,9 @@
 devpi_user: devpi
 devpi_home: /opt/devpi
 
+devpi_host: 127.0.0.1
+devpi_port: 3141
+
 devpi_venv_dir: "{{ devpi_home }}/venv"
 devpi_data_dir: "{{ devpi_home }}/data"
 devpi_config_dir: "{{ devpi_home }}/config"
@@ -10,4 +13,6 @@ devpi_server_package: devpi-server==6.14.0
 devpi_client_package: devpi-client==7.1.0
 devpi_web_package: devpi-web==4.3.0
 
-
+devpi_init_params:
+  - "--serverdir={{ devpi_data_dir }}"
+  

@@ -25,6 +25,7 @@
     creates: "{{ devpi_venv_dir }}"
 
 - name: Install Devpi Server
+  become_user: "{{ devpi_user }}"
   pip:
     name: "{{ item }}"
     virtualenv: "{{ devpi_venv_dir }}"
@@ -34,4 +35,8 @@
     - "{{ devpi_client_package }}"
     - "{{ devpi_web_package }}"
 
-
+- name: Init Devpi Server
+  become_user: "{{ devpi_user }}"
+  command:
+    cmd: "{{ devpi_venv_dir }}/bin/devpi-init {{ devpi_init_params | join(' ') }}"
+    creates: "{{ devpi_data_dir }}/.nodeinfo"
