@@ -19,8 +19,9 @@
     - "{{ devpi_config_dir }}"
 
 - name: Create VirtualEnv for Devpi
+  become_user: "{{ devpi_user }}"
   command:
-    cmd: virtualenv "{{ devpi_venv_dir }}"
+    cmd: "virtualenv {{ devpi_venv_dir }}"
     creates: "{{ devpi_venv_dir }}"
 
 - name: Install Devpi Server
